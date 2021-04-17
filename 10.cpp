@@ -109,11 +109,40 @@ void printTree(node *root, string indent, bool last)
  }
 }
 
+node* search(node* root,int n)
+{
+    if(root==NULL)
+    {
+        cout<<"search element cant be found\n";
+        return root;
+    }
+    else if(n>root->n){
+        root->right=search(root->right,n);
 
+    }
+    else if(n<root->n)
+    {
+        root->left=search(root->left,n);
+    }
+    else if(n==root->n)
+    {
+        cout<<"search element "<<n<<"found \n";
+        return root;
+    }
+    return root;
+}
+void inorder(node* root)
+{
+    if(root==NULL)
+    return ;
+    inorder(root->left);
+    cout<<root->n;
+    inorder(root->right);
+}
 int main(){
     int ch,n;
     node *root=NULL,*temp;
-    cout<<"enter yr choice.1.insertion\t2.inorder\t3.postorder\t4.preorder\t5.search node\tdelete node\n";
+    cout<<"enter yr choice.1.insertion\t2.display\t3.printnode\t4.delete\t5.search node\t6.inorder\n";
     cin>>ch;
     while(ch!=0)
     {
@@ -133,8 +162,16 @@ int main(){
             case 4:cout<<"enter the element to be deleted\n";
             cin>>ch;
             root=deletenode(root,ch);
+            break;
+            case 5:cin>>n;
+            root=search(root,n);
+            break;
+            case 6:
+            inorder(root);
+            break;
         }
         cout<<"\nenter your choice.\n";
         cin>>ch;
     }  
 }
+
